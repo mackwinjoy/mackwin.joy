@@ -203,3 +203,58 @@ const experienceBarChart = new Chart(document.getElementById('experienceBarChart
 window.addEventListener('resize', function() {
   experienceBarChart.resize();
 });
+
+// Scroll-based active nav highlight
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('#nav-menu a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - 80;
+    if (pageYOffset >= sectionTop) {
+      current = section.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove('text-yellow-300');
+    if (link.getAttribute('href') === `#${current}`) {
+      link.classList.add('text-yellow-300');
+    }
+  });
+});
+
+// Auto dark mode based on system time
+const hour = new Date().getHours();
+if (hour >= 18 || hour < 6) {
+  document.documentElement.classList.add('dark');
+} else {
+  document.documentElement.classList.remove('dark');
+}
+
+// Basic 3D Cube using Three.js
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 600, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, 300);
+document.getElementById('three-container').appendChild(renderer.domElement);
+
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshStandardMaterial({ color: 0x6a1b9a });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(5, 5, 5);
+scene.add(light);
+
+camera.position.z = 5;
+
+function animate3D() {
+  requestAnimationFrame(animate3D);
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+  renderer.render(scene, camera);
+}
+animate3D();
