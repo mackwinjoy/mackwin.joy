@@ -9,7 +9,6 @@ body {
     background: url('https://raw.githubusercontent.com/mackwinjoy/mackwin.joy/bb28fc7f48355abf662f000d384f7864dc48c990/photo.jpg.jpg') no-repeat center center fixed;
     background-size: cover;
 }
-
 *, *::before, *::after {
   box-sizing: border-box;
 }
